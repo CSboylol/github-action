@@ -10,3 +10,11 @@ jobs:
     steps:
       - name: Print message
         run: echo "Hello GitHub Actions"
+
+  build:
+    needs: hello
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Build message
+        run: echo "Build job is running after hello"
