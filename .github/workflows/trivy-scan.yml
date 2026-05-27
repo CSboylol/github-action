@@ -11,16 +11,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Trivy CLI
-        uses: aquasecurity/setup-trivy@v0.2.3
+      - name: Run Trivy filesystem scan
+        uses: aquasecurity/trivy-action@0.35.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          severity: HIGH,CRITICAL
+          exit-code: "1"
+          ignore-unfixed: true
+          format: table
 
       - name: Print Trivy version
         run: trivy --version
-
-      - name: Scan repository filesystem
-        run: |
-          trivy fs \
-            --severity HIGH,CRITICAL \
-            --exit-code 1 \
-            --no-progress \
-            .
